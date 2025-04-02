@@ -42,6 +42,5 @@ while running:
     display_surface.blit(player_surf, player_rect)
     pygame.display.update()
 
-    #delete this line 
 
 pygame.quit()
