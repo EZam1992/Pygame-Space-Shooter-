@@ -9,7 +9,7 @@ display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Space Shooter")
 running = True 
 star_positions = [(randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)) for i in range(20)]
-player_direction = pygame.math.Vector2(1, 1)
+player_direction = pygame.math.Vector2(0, 0)
 player_speed = 300
 clock = pygame.time.Clock()
 
@@ -29,6 +29,17 @@ while running:
         if event.type == pygame.QUIT:
             running = False 
 
+
+    #input 
+    keys = pygame.key.get_pressed()
+    player_direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
+    player_direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
+    player_direction = player_direction.normalize() if player_direction else player_direction
+
+    
+
+    player_rect.center += player_direction * player_speed * dt
+
     #draw the game 
     display_surface.fill("darkgray")
     for pos in star_positions:
@@ -37,13 +48,6 @@ while running:
     display_surface.blit(meteor_surf, meteor_rect)
     display_surface.blit(laser_surf, laser_rect)
 
-    #player movement 
-    player_rect.center += player_direction * player_speed * dt
-    if player_rect.bottom > WINDOW_HEIGHT or player_rect.top < 0:
-        player_direction.y *= -1
-
-    if player_rect.right > WINDOW_WIDTH or player_rect.left < 0:
-        player_direction.x *= -1
 
     display_surface.blit(player_surf, player_rect)
     pygame.display.update()
