@@ -30,11 +30,19 @@ while running:
             running = False 
 
 
-    #input 
+    # keyboard input 
     keys = pygame.key.get_pressed()
     player_direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
     player_direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
     player_direction = player_direction.normalize() if player_direction else player_direction
+
+    recent_keys = pygame.key.get_just_pressed()
+
+    if recent_keys[pygame.K_SPACE]:
+        print("fire laser")
+
+    #mouse input 
+
 
     
 
