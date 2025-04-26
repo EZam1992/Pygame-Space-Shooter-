@@ -21,7 +21,6 @@ class Player(pygame.sprite.Sprite):
             if current_time - self.laser_shoot_time >= self.cooldown_duration:
                 self.can_shoot = True
             
-
     def update(self, dt):
         keys = pygame.key.get_pressed()
         self.player_direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
@@ -33,7 +32,6 @@ class Player(pygame.sprite.Sprite):
             Laser(laser_surf, self.rect.midtop, all_sprites)
             self.can_shoot = False
             self.laser_shoot_time = pygame.time.get_ticks()
-
         self.laser_timer()
 
 class Star(pygame.sprite.Sprite):
@@ -68,7 +66,6 @@ class Meteor(pygame.sprite.Sprite):
         if pygame.time.get_ticks() - self.start_time >= self.lifetime:
             self.kill()
 
-
 #general setup 
 pygame.init()
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
@@ -78,7 +75,10 @@ pygame.display.set_caption("Space Shooter")
 # variables needed for game logistics
 running = True 
 clock = pygame.time.Clock()
+
+#create sprite groups
 all_sprites = pygame.sprite.Group()
+meteor_sprites = pygame.sprite.Group()
 
 #imports
 star_surf = pygame.image.load(join('space shooter', 'images', 'star.png')).convert_alpha()
@@ -92,7 +92,9 @@ player = Player(all_sprites)
 
 # custom events -> meteor event 
 meteor_event = pygame.event.custom_type()
-pygame.time.set_timer(meteor_event, 2000)
+pygame.time.set_timer(meteor_event, 200)
+
+
 
 while running:
     dt = clock.tick() / 1000
@@ -102,14 +104,18 @@ while running:
             running = False 
         if event.type == meteor_event:
             x, y = randint(0, WINDOW_WIDTH), randint(-200, -100)
-            Meteor(meteor_surf, (x, y), all_sprites)
+            Meteor(meteor_surf, (x, y), (all_sprites, meteor_sprites))
 
     #update
     all_sprites.update(dt)
+    sprite_collision = pygame.sprite.spritecollide(player, meteor_sprites, True)
+    if sprite_collision:
+        print("collision")
 
     #draw the game 
     display_surface.fill("darkgray")
     all_sprites.draw(display_surface)
     pygame.display.update()
+
 
 pygame.quit()
