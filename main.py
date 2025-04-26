@@ -53,27 +53,35 @@ class Laser(pygame.sprite.Sprite):
         if self.rect.bottom < 0:
             self.kill()
 
+class Meteor(pygame.sprite.Sprite):
+    def __init__(self, surf, *groups):
+        super().__init__(*groups)
+        self.image = surf
+        self.rect = self.image.get_frect()
 
 #general setup 
 pygame.init()
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
 display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Space Shooter")
-running = True 
 
+# variables needed for game logistics
+running = True 
 clock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
+
+#imports
 star_surf = pygame.image.load(join('space shooter', 'images', 'star.png')).convert_alpha()
+laser_surf = pygame.image.load(join('space shooter', 'images', 'laser.png')).convert_alpha()
+meteor_surf = pygame.image.load(join('space shooter', 'images', 'meteor.png')).convert_alpha()
 for i in range(20):
     Star(star_surf, all_sprites)
 player = Player(all_sprites)
 
 
-#imports
-meteor_surf = pygame.image.load(join('space shooter', 'images', 'meteor.png')).convert_alpha()
 meteor_rect = meteor_surf.get_frect(center = (WINDOW_WIDTH/2,WINDOW_HEIGHT/2))
-laser_surf = pygame.image.load(join('space shooter', 'images', 'laser.png')).convert_alpha()
-laser_rect = laser_surf.get_frect(bottomleft = (20, WINDOW_HEIGHT - 20))
+
+
 
 # custom events -> meteor event 
 meteor_event = pygame.event.custom_type()
