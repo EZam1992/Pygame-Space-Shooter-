@@ -29,7 +29,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.center += self.player_direction * self.player_speed * dt
         recent_keys = pygame.key.get_just_pressed()
         if recent_keys[pygame.K_SPACE] and self.can_shoot:
-            Laser(laser_surf, self.rect.midtop, all_sprites)
+            Laser(laser_surf, self.rect.midtop, (all_sprites, laser_sprites))
             self.can_shoot = False
             self.laser_shoot_time = pygame.time.get_ticks()
         self.laser_timer()
@@ -66,6 +66,19 @@ class Meteor(pygame.sprite.Sprite):
         if pygame.time.get_ticks() - self.start_time >= self.lifetime:
             self.kill()
 
+def collision():
+
+    global running
+
+    sprite_collision = pygame.sprite.spritecollide(player, meteor_sprites, True)
+    if sprite_collision:
+        running = False
+    
+    for laser in laser_sprites:
+        collided_sprite = pygame.sprite.spritecollide(laser, meteor_sprites, True)
+        if collided_sprite:
+            laser.kill()
+
 #general setup 
 pygame.init()
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
@@ -79,11 +92,14 @@ clock = pygame.time.Clock()
 #create sprite groups
 all_sprites = pygame.sprite.Group()
 meteor_sprites = pygame.sprite.Group()
+laser_sprites = pygame.sprite.Group()
 
 #imports
 star_surf = pygame.image.load(join('space shooter', 'images', 'star.png')).convert_alpha()
 laser_surf = pygame.image.load(join('space shooter', 'images', 'laser.png')).convert_alpha()
 meteor_surf = pygame.image.load(join('space shooter', 'images', 'meteor.png')).convert_alpha()
+font = pygame.font.Font(join('space shooter', 'images', 'Oxanium-Bold.ttf'), 20)
+font_surface = font.render('Text', True, 'red')
 
 #sprite generation
 for i in range(20):
@@ -108,13 +124,12 @@ while running:
 
     #update
     all_sprites.update(dt)
-    sprite_collision = pygame.sprite.spritecollide(player, meteor_sprites, True)
-    if sprite_collision:
-        print("collision")
+    collision()
 
     #draw the game 
     display_surface.fill("darkgray")
     all_sprites.draw(display_surface)
+    display_surface.blit(font_surface, (0,0))
     pygame.display.update()
 
 
