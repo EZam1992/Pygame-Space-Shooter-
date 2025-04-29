@@ -84,6 +84,7 @@ def display_score():
     font_surface = font.render(str(int(current_time)), True, (240, 240, 240))
     font_rect = font_surface.get_frect(midbottom = (WINDOW_WIDTH / 2, WINDOW_HEIGHT - 50))
     display_surface.blit(font_surface, font_rect)
+    pygame.draw.rect(display_surface, (240, 240, 240), font_rect.inflate(20, 10).move(0, -6), 6, 1)
 #general setup 
 pygame.init()
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
@@ -103,7 +104,7 @@ laser_sprites = pygame.sprite.Group()
 star_surf = pygame.image.load(join('space shooter', 'images', 'star.png')).convert_alpha()
 laser_surf = pygame.image.load(join('space shooter', 'images', 'laser.png')).convert_alpha()
 meteor_surf = pygame.image.load(join('space shooter', 'images', 'meteor.png')).convert_alpha()
-font = pygame.font.Font(join('space shooter', 'images', 'Oxanium-Bold.ttf'), 20)
+font = pygame.font.Font(join('space shooter', 'images', 'Oxanium-Bold.ttf'), 40)
 
 
 #sprite generation
