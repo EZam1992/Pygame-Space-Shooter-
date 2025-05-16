@@ -25,12 +25,6 @@ You control a spaceship that can move freely across the screen using the arrow k
   - Laser and explosion sound effects.
   - Background music loop during gameplay.
 
-- **Technical Details:**
-  - Built with `pygame.sprite.Sprite` for modular game objects.
-  - Collision detection uses **pixel-perfect masks**.
-  - Delta time (`dt`) for smooth, frame-rate independent movement.
-  - Custom timer events for meteor spawning.
-
 ## 🛠️ Requirements
 
 - Python 3.x
