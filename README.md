@@ -1,5 +1,9 @@
 # 🚀 Space Shooter
 
+  # Project Architecture
+
+![Main Diagram](diagrams/png/main.png)
+
 A 2D top-down arcade-style space shooter game built with **Pygame**. Control a spaceship, dodge falling meteors, and destroy them with your laser cannon to survive as long as possible. The game features smooth controls, sound effects, animated explosions, and a retro-themed starfield background.
 
 ## 🎮 Gameplay Overview
@@ -24,7 +28,7 @@ You control a spaceship that can move freely across the screen using the arrow k
   - Starfield background to create a space atmosphere.
   - Laser and explosion sound effects.
   - Background music loop during gameplay.
-
+ 
 ## 🛠️ Requirements
 
 - Python 3.x
@@ -35,6 +39,3 @@ Install Pygame using pip:
 ```bash
 pip install pygame-ce
 
-# Project Architecture
-
-![Main Diagram](diagrams/png/main.png)
