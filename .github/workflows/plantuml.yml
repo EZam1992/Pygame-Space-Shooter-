@@ -25,18 +25,23 @@ jobs:
           brew update
           brew install graphviz plantuml
 
-      - name: Generate PNGs from PUML
+      - name: Generate PNG from PUML
         run: |
           mkdir -p diagrams/png
-          for f in diagrams/*.puml; do
-            echo "Rendering $f"
-            plantuml -tpng "$f" -o png
-          done
-          echo "Resulting diagrams directory:"
-          ls -R diagrams
 
-      - name: Commit rendered diagrams
+          # Render your PUML (whatever its name is)
+          plantuml -tpng diagrams/main.puml -o png
+
+          # Rename output to spaceshooter.png
+          if [ -f diagrams/png/main.png ]; then
+            mv diagrams/png/main.png diagrams/png/spaceshooter.png
+          fi
+
+          echo "Files in diagrams/png:"
+          ls -l diagrams/png
+
+      - name: Commit rendered diagram
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update UML diagrams"
-          file_pattern: diagrams/png/*.png
+          commit_message: "Update UML diagram"
+          file_pattern: diagrams/png/spaceshooter.png
