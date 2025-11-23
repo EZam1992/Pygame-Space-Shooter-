@@ -1,0 +1,102 @@
+@startuml
+
+package pygame {
+
+    class pygameModule {
+        +init()
+    }
+        
+    class displayModule {
+
+    }
+    
+    class timeModule {
+        
+    }
+    
+    class spriteModule {
+        
+    }
+    
+    class imageModule {
+        
+    }
+ 
+
+    class mixerModule {
+        
+    }
+ 
+
+    class fontModule {
+        
+    }
+ 
+    class eventModule {
+        
+    }
+}
+
+package os {
+
+    class pathModule{
+        +join()
+    }
+
+
+}
+
+package Random {
+
+    class randomModule{
+        +randint()
+        +unifor()
+    }
+
+}
+
+package "Space Shooter" as shoot #LightBlue;line:Blue;line.bold {
+
+    package assets #Pink {
+    entity audio {}
+    entity images {}
+}
+
+    file "main.py" as main_py #Pink {
+
+    class Player {
+        +__init__()
+        +laser_time()
+        +update()
+    }
+
+    class Star {
+        +__init__()
+    }
+
+    class Laser {
+        +__init__()
+        +update()
+    }
+
+    class Meteor {
+        +__init__()
+        +update()
+    }
+
+    class AnimatedExplosion {
+        +__init__()
+        +update()
+    }
+
+    }
+
+}
+
+main_py --> pygame 
+main_py --> audio
+main_py --> images
+main_py --> pathModule
+main_py --> randomModule
+
+@enduml
