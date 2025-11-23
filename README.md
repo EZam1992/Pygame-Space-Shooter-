@@ -2,8 +2,7 @@
 
   # Project Architecture
 
-![Game Architecture](diagrams/png/main.png)
-
+![Architecture](diagrams/png/architecture.png)
 
 A 2D top-down arcade-style space shooter game built with **Pygame**. Control a spaceship, dodge falling meteors, and destroy them with your laser cannon to survive as long as possible. The game features smooth controls, sound effects, animated explosions, and a retro-themed starfield background.
 
