@@ -19,6 +19,7 @@ package pygame {
     }
     
     class imageModule {
+        +get_frect()
         
     }
  
