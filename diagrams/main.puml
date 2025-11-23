@@ -11,6 +11,7 @@ package pygame {
     }
     
     class timeModule {
+        +get_ticks()
         
     }
     
