@@ -1,12 +1,14 @@
-name: Render PlantUML (macOS)
+name: Render PlantUML diagrams
 
 on:
   push:
+    branches: [ main ]
     paths:
       - 'diagrams/*.puml'
-  pull_request:
-    paths:
-      - 'diagrams/*.puml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
 
 jobs:
   render:
@@ -14,7 +16,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -27,11 +29,14 @@ jobs:
         run: |
           mkdir -p diagrams/png
           for f in diagrams/*.puml; do
+            echo "Rendering $f"
             plantuml -tpng "$f" -o png
           done
+          echo "Resulting diagrams directory:"
+          ls -R diagrams
 
       - name: Commit rendered diagrams
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update rendered UML diagrams"
+          commit_message: "Update UML diagrams"
           file_pattern: diagrams/png/*.png
