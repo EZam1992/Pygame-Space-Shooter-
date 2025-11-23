@@ -34,3 +34,7 @@ Install Pygame using pip:
 
 ```bash
 pip install pygame-ce
+
+# Project Architecture
+
+![Main Diagram](diagrams/png/main.png)
