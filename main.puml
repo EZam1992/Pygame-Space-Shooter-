@@ -1,0 +1,153 @@
+@startuml
+
+skinparam groupInheritance 3
+
+package pygame {
+
+    class Sprite {
+
+    }
+
+    class pygameModule {
+        +init()
+    }
+
+    class drawModule {
+        +rect()
+    }
+        
+    class displayModule {
+        +blit()
+        +set_caption()
+        +set_mode()
+        +fill()
+
+    }
+    
+    class timeModule {
+        +get_ticks()
+        +Clock()
+        +set_timer()
+        
+    }
+    
+    class spriteModule {
+        +spritecollide()
+        +Group()
+        +update()
+        +draw()
+        
+    }
+    
+    class imageModule {
+        +load()
+        +get_frect()
+        
+    }
+
+    class maskModule {
+        +from_surface()
+    }
+ 
+    class transformModule {
+        +rotozoom()
+    }
+
+    class mixerModule {
+        +sound()
+        +set_volume()
+        +play()
+        
+    }
+ 
+    class fontModule {
+        +render()
+        +Font()
+        
+    }
+ 
+    class eventModule {
+        +custom_type()
+        +get()
+        
+    }
+
+    class mathModule {
+        +Vector2()
+    }
+
+    class keyModule { 
+        +get_pressed()
+        +get_just_pressed()
+    }
+}
+
+package os {
+
+    class pathModule{
+        +join()
+    }
+
+
+}
+
+package Random {
+
+    class randomModule{
+        +randint()
+        +unifor()
+    }
+
+}
+
+package "Space Shooter" as shoot #LightBlue;line:Blue;line.bold {
+
+    package assets #Pink {
+    entity audio {}
+    entity images {}
+}
+
+    file "main.py" as main_py #Pink {
+
+    class Player {
+        +__init__()
+        +laser_time()
+        +update()
+    }
+
+    class Star {
+        +__init__()
+    }
+
+    class Laser {
+        +__init__()
+        +update()
+    }
+
+    class Meteor {
+        +__init__()
+        +update()
+    }
+
+    class AnimatedExplosion {
+        +__init__()
+        +update()
+    }
+
+    }
+
+}
+
+main_py --> pygame 
+main_py --> audio
+main_py --> images
+main_py --> pathModule
+main_py --> randomModule
+
+Sprite <|-- Player
+Sprite <|-- Star
+Sprite <|-- Laser
+Sprite <|-- Meteor
+Sprite <|-- AnimatedExplosion
+
+@enduml
